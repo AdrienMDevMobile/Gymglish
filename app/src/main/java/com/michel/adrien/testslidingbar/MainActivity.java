@@ -30,9 +30,12 @@ public class MainActivity extends ActionBarActivity {
     private CharSequence mTitle;
     private String[] mwebTitles;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         mTitle = mDrawerTitle = getTitle();
@@ -50,6 +53,7 @@ public class MainActivity extends ActionBarActivity {
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
@@ -75,6 +79,12 @@ public class MainActivity extends ActionBarActivity {
             selectItem(0);
         }
     }
+
+    /*
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        outState.putString("codeHtml");
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -152,11 +162,15 @@ public class MainActivity extends ActionBarActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+
     /**
+     * New class WebFragment
      * Fragment that appears in the "content_frame", shows a planet
      */
     public static class WebFragment extends WebViewFragment {
+        //private Bundle webViewBundle;
         public static final String ARG_WEB_NUMBER = "web_number";
+        private WebView webView;
 
         public WebFragment() {
             // Empty constructor required for fragment subclasses
@@ -170,24 +184,38 @@ public class MainActivity extends ActionBarActivity {
 
             //We get the number of the website
             int i = getArguments().getInt(ARG_WEB_NUMBER);
-            String planet = getResources().getStringArray(R.array.webs_array)[i];
+            String site = getResources().getStringArray(R.array.webs_array)[i];
 
             View rootView = inflater.inflate(R.layout.fragment_web, container, false);
 
-            WebView webView = ((WebView) rootView.findViewById(R.id.image));
+
+            webView = ((WebView) rootView.findViewById(R.id.image));
 
 
             webView.setWebViewClient(new WebViewClient(){
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
                     view.loadUrl(url);
                     return true;
                 }
             });
-            webView.loadUrl("http://www." + planet + ".com/");
 
+            if (savedInstanceState == null) {
+                String fin;
+                webView.loadUrl("http://www." + site + ".com" );
+                //Log.i("debug", "c'est null marche");
 
-            return(webView);
+            } else {
+                webView.restoreState(savedInstanceState);
+                //Log.i("debug", "ca marche");
+            }
+    return(webView);
+}
+
+        @Override
+        public void onSaveInstanceState(Bundle outState){
+           webView.saveState(outState);
         }
     }
 }
