@@ -15,8 +15,8 @@
   -->
 
 <resources>
-    <string name="app_name">Navigation Drawer Example</string>
-    <string-array name="planets_array">
+    <string name="app_name">GYMGLISH Adrien MICHEL</string>
+    <string-array name="webs_array">
         <item>Gymglish</item>
         <item>Frantastique</item>
         <item>Vatefaireconjuguer</item>
