@@ -4,4 +4,4 @@ je devais faire une application web qui affichait leur site.
 
 Voici le résultat.
 
-L'application a été accepté, et j'ai été recu pour un entretien.
+L'application a été acceptée, et j'ai été recu pour un entretien.
